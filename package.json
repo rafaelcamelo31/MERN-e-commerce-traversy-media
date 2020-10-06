@@ -1,0 +1,22 @@
+{
+  "name": "mern-e-commerce-traversy-media",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelcamelo31/MERN-e-commerce-traversy-media.git"
+  },
+  "author": "Rafael",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaelcamelo31/MERN-e-commerce-traversy-media/issues"
+  },
+  "homepage": "https://github.com/rafaelcamelo31/MERN-e-commerce-traversy-media#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
