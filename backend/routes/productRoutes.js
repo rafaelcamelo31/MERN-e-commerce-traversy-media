@@ -12,7 +12,7 @@ router.get('/', asyncHandler(async (req, res) => {
     res.json(products)
 }))
 
-// @desc Fetch single products
+// @desc Fetch single product
 // @route GET /api/products/:id
 // @access Public
 router.get('/:id', asyncHandler(async (req, res) => {
@@ -21,7 +21,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
     if (product) {
         res.json(product)
     } else {
-        res.status(404).json({ message: 'Product not found' })
+        res.status(404)
+        throw new Error('Product not found')
     }
 }))
 
