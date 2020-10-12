@@ -12,8 +12,10 @@ const HomeScreen = () => {
     const { loading, error, products } = productList
 
     useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+        if (products.length === 0) {
+            dispatch(listProducts())
+        }
+    }, [dispatch, products.length])
 
     return (
         <>
