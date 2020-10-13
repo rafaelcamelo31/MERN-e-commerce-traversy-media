@@ -3,12 +3,12 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
 import { useDispatch, useSelector } from 'react-redux'
-import { listProductDetails } from '../actions/productActions'
+import { clearProductDetail, listProductDetails } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 const ProductScreen = ({ history, match }) => {
-    const [qty, setQty] = useState(0)
+    const [qty, setQty] = useState(1)
     const dispatch = useDispatch()
 
     const productDetail = useSelector(state => state.productDetail)
@@ -16,6 +16,9 @@ const ProductScreen = ({ history, match }) => {
 
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
+        return () => {
+            dispatch(clearProductDetail())
+        }
     }, [dispatch, match])
 
     const addToCartHandler = () => {

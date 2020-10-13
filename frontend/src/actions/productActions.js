@@ -4,7 +4,8 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_DETAIL_REQUEST,
     PRODUCT_DETAIL_SUCCESS,
-    PRODUCT_DETAIL_FAIL
+    PRODUCT_DETAIL_FAIL,
+    CLEAR_PRODUCT_DETAIL
 } from '../constants/productConstants'
 import axios from 'axios'
 
@@ -46,4 +47,8 @@ export const listProductDetails = (id) => async (dispatch) => {
                 : error.message
         })
     }
+}
+
+export const clearProductDetail = () => async (dispatch) => {
+    dispatch({ type: CLEAR_PRODUCT_DETAIL, payload: {} })
 }
