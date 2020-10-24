@@ -3,9 +3,10 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetail } from '../actions/userActions'
+import { getUserDetail, updateUserProfile } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
-function ProfileScreen({ location, history }) {
+const ProfileScreen = ({ location, history }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
@@ -20,25 +21,29 @@ function ProfileScreen({ location, history }) {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const userUpdate = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdate
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user.name) {
+            if (!user || !user.name) {
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetail('profile'))
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [history, userInfo, user])
+    }, [history, userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()
         if (password !== confirmPassword) {
             setMessage('Password do not match')
         } else {
-            // Dispatch update profile
+            dispatch(updateUserProfile({ id: user._id, name, email, password }))
         }
     }
 
@@ -48,6 +53,7 @@ function ProfileScreen({ location, history }) {
                 <h2>User Profile</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
+                {success && <Message variant='success'>Profile Updated</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='name'>
